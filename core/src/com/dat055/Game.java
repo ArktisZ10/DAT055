@@ -20,6 +20,7 @@ public class Game extends ApplicationAdapter {
 	private ArrayList<Controller> controllers;
 	private GameController gameController;
 	private MenuController menuController;
+	private boolean menuToggle = true; // true = menu, false = game todo: should be state based?
 
 	private float deltaTime; // Time since last update
 	
@@ -43,17 +44,28 @@ public class Game extends ApplicationAdapter {
 		deltaTime = Gdx.graphics.getDeltaTime();
 
 		// Update
-		for(Controller controller : controllers) { controller.update(deltaTime); }
+		if (menuToggle == false)
+			for(Controller controller : controllers) { controller.update(deltaTime); }
 
 		// Draw
-		batch.begin();
-		for(Controller controller : controllers) { controller.render(batch); }
-		menuController.draw();
-		batch.end();
+		if (menuToggle == false) {
+			batch.begin();
+			for(Controller controller : controllers) { controller.render(batch); }
+			batch.end();
+		}
+		else if (menuToggle == true)
+			menuController.draw();
 	}
 
 	@Override
 	public void dispose () {
 		batch.dispose();
+	}
+
+	private void menuToggler() {
+		if (menuToggle == false)
+			menuToggle = true;
+		else
+			menuToggle = false;
 	}
 }
