@@ -16,25 +16,20 @@ import com.dat055.View.View;
 import java.util.ArrayList;
 
 public class Game extends ApplicationAdapter {
+	private boolean toggle = true;
 	private SpriteBatch batch;
-	private ArrayList<Controller> controllers;
 	private GameController gameController;
 	private MenuController menuController;
-	private boolean menuToggle = true; // true = menu, false = game todo: should be state based?
 
 	private float deltaTime; // Time since last update
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		controllers = new ArrayList<Controller>();
 
 		GameModel gameModel = new GameModel();
 		gameController = new GameController(gameModel, new GameView(gameModel));
-		gameController.startMap("maps/map_0.json");
-
-		menuController = new MenuController();
-		controllers.add(gameController);
+		menuController = new MenuController(gameController);
 	}
 
 	@Override
@@ -43,18 +38,20 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		deltaTime = Gdx.graphics.getDeltaTime();
 
-		// Update
-		if (menuToggle == false)
-			for(Controller controller : controllers) { controller.update(deltaTime); }
+
+		if(menuController.isVisible())
+			menuController.update();
+
+		if(!gameController.isPaused())
+			gameController.update(deltaTime);
+
 
 		// Draw
-		if (menuToggle == false) {
-			batch.begin();
-			for(Controller controller : controllers) { controller.render(batch); }
-			batch.end();
-		}
-		else if (menuToggle == true)
-			menuController.draw();
+		batch.begin();
+		if(!gameController.isPaused())
+			gameController.render(batch);
+		menuController.draw();
+		batch.end();
 	}
 
 	@Override
@@ -62,10 +59,8 @@ public class Game extends ApplicationAdapter {
 		batch.dispose();
 	}
 
-	private void menuToggler() {
-		if (menuToggle == false)
-			menuToggle = true;
-		else
-			menuToggle = false;
+	public void pauseMenu() {
+		menuController.swapMenu("Pause");
+		menuController.toggleVisibility();
 	}
 }
