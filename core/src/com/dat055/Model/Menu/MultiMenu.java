@@ -14,9 +14,11 @@ import com.dat055.Model.Menu.Menu;
 public class MultiMenu extends Menu {
     private MenuController controller;
     TextButton join, host, back;
+    TextField address;
     public MultiMenu(MenuController cntr) {
         super();
         initTxtBtnStyle();
+        initTxtFldStyle();
         initLblStyle();
 
         this.controller = cntr;
@@ -31,14 +33,15 @@ public class MultiMenu extends Menu {
         join = createButton("Join");
         host = createButton("Host");
         back = createButton("Back");
+        address = createTextField("");
 
         addListeners();
 
         subTable.add(back).width(150).padRight(300);
-        subTable.add(host);
+        subTable.add(host).width(150);
 
         table.padTop(200);
-        //table.add(address).width(300).padBottom(30).row();
+        table.add(address).width(300).padBottom(30).row();
         table.add(join).width(300).padBottom(30).row();
         table.add(subTable).width(500).padBottom(20);
 

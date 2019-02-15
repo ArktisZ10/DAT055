@@ -2,19 +2,16 @@ package com.dat055.Model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.dat055.Model.Menu.MainMenu;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.dat055.Model.Menu.Menu;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 
 public class MenuModel extends Model {
     private HashMap<String, Menu> menus;
     private String currentMenu;
     private Stage stage;
-    private Sprite bgSprite;
 
     public MenuModel() {
         stage = new Stage();
@@ -23,11 +20,12 @@ public class MenuModel extends Model {
 
     public void includeMenu(String label, Menu menu) {
         menus.put(label, menu);
-        bgSprite = menu.getBgSprite();
     }
 
     public void swapMenu(String menu) {
         stage.clear();
+        if (menus.get(menu).getBg() != null)
+            stage.addActor(new Image(menus.get(menu).getBg()));
         stage.addActor(menus.get(menu).getTable());
         currentMenu = menu;
     }
@@ -35,6 +33,4 @@ public class MenuModel extends Model {
     public Stage getStage() {
         return stage;
     }
-
-    public void update() { stage.act(); }
 }

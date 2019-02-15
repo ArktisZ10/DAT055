@@ -40,7 +40,8 @@ public class Game extends ApplicationAdapter {
 
 
 		if(menuController.isVisible())
-			menuController.update();
+			menuController.update(deltaTime);
+
 
 		if(!gameController.isPaused())
 			gameController.update(deltaTime);
@@ -50,7 +51,7 @@ public class Game extends ApplicationAdapter {
 		batch.begin();
 		if(!gameController.isPaused())
 			gameController.render(batch);
-		menuController.draw();
+		menuController.render(batch);
 		batch.end();
 	}
 
