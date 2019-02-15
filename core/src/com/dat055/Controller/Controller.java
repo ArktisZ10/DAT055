@@ -13,10 +13,11 @@ public abstract class Controller {
         this.model = model;
     }
 
-    public void update(float deltaTime) {
-    }
+    public void update(float deltaTime) {}
 
+    public void render() {}
     public void render(SpriteBatch batch) {
         view.render(batch);
     }
+
 }

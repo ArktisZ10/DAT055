@@ -19,22 +19,24 @@ import com.dat055.Model.Menu.Menu;
 public class MainMenu extends Menu {
     private MenuController controller;
     private TextButton play, multi, settings, exit, credits;
+    private Label title, verNr;
 
     public MainMenu(MenuController cntr) {
         super();
+        //super("UI/Delta.jpg");
         initTxtBtnStyle();
         initLblStyle();
 
         this.controller = cntr;
         Table table = new Table();
         Table subTable = new Table();
-        Label verNr = new Label("Ver: 0.17", super.lblStyle);
 
         table.setWidth(controller.getWidth());
         table.align(Align.center|Align.top);
 
         table.setPosition(0, Gdx.graphics.getHeight());
 
+        verNr = new Label("Ver: 0.17", super.lblStyle);
         play = createButton("Play");
         multi = createButton("Multiplayer");
         settings = createButton("Settings");
@@ -132,7 +134,7 @@ public class MainMenu extends Menu {
         exit.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                controller.swapMenu("Main");
+                System.exit(0);
                 return true;
             }
 

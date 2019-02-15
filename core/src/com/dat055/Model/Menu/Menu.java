@@ -20,13 +20,12 @@ public abstract class Menu {
     protected LabelStyle lblStyle;
     protected TextButtonStyle txtBtnStyle;
     protected TextFieldStyle txtFldStyle;
-    protected Sprite bgSprite;
+    protected Texture bg;
 
     protected Menu() { }
 
-    protected Menu(String bgAssetLocation) {
-        Texture bgTexture = new Texture(bgAssetLocation);
-        bgSprite = new Sprite(bgTexture);
+    protected Menu(String bgPath) {
+        this.bg = new Texture(bgPath);
     }
 
     public LabelStyle getLblStyle() {
@@ -45,17 +44,13 @@ public abstract class Menu {
         return this.table;
     }
 
-    public Sprite getBgSprite() {
-        return this.bgSprite;
+    public Texture getBg() {
+        return this.bg;
     }
 
     public TextButton createButton(String label) { return new TextButton(label, txtBtnStyle); }
 
-    public TextField createTextField(String label) {
-        TextField txtFld = new TextField(label, txtFldStyle);
-        txtFld.setText(label);
-        return txtFld;
-    }
+    public TextField createTextField(String label) { return new TextField(label, txtFldStyle); }
 
     public BitmapFont generateFont(int size) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Cabin-SemiBold.ttf"));

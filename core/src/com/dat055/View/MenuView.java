@@ -1,5 +1,6 @@
 package com.dat055.View;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class MenuView extends View {
